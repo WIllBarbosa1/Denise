@@ -5,26 +5,8 @@
   padding: 0 20px;
 }
 
-.steps-container {
+.steps-line-container {
   padding-top: 50px;
-}
-
-.paciente-info-container {
-  width: 80%;
-  margin: 0 auto;
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  padding: 20px 40px;
-  border: 1px dotted #475B5A;
-  border-radius: 25px;
-  gap: 15px;
-}
-
-.paciente-info__input {
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
 }
 
 .step-button-container {
@@ -34,4 +16,16 @@
   margin-top: 20px;
   align-items: center;
   justify-content: space-between;
+}
+
+.steps-container {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 40px;
+  border: 1px dotted #475B5A;
+  border-radius: 25px;
+  gap: 15px;
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="page-container">
-    <div class="steps-container">
+    <div class="steps-line-container">
       <el-steps :active="activeStep" align-center>
         <el-step title="Passo 1" description="Informar dados do paciente" />
         <el-step title="Passo 2" description="Informar sintomas" />
@@ -8,65 +8,123 @@
         <el-step title="Passo 4" description="Resultado" />
       </el-steps>
     </div>
-    <div class="paciente-info-container">
-      <el-row class="paciente-info__input">
-        Nome:
-        <el-input type="text" placeholder="Nome do paciente" />
-      </el-row>
-      <el-row class="paciente-info__input">
-        Sexo:
-        <el-select v-model="gender" placeholder="Sexo paciente" size="large">
-          <el-option
-            v-for="item in genderOptions"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
-        </el-select>
-      </el-row>
-      <el-row class="paciente-info__input">
-        Idade:
-        <el-input-number v-model="age" :min="0" :max="150" />
-      </el-row>
-      <el-row class="paciente-info__input">
-        Observações:
-        <el-input
-          type="textarea"
-          placeholder="Informe qualquer observação que ache relevante..."
-          :rows="5"
-          maxlength="1000"
-          show-word-limit
-        />
-      </el-row>
-    </div>
-    <div class="step-button-container">
-      <el-button @click="handlePreviusStep">Passo anterior</el-button>
-      <el-button @click="handleNextStep">Proximo passo</el-button>
+    <div class="steps-container">
+      <StepOne v-if="activeStep === 0" :patientInfo="patientInfo" @next="handleNextStep" />
+      <StepTwo
+        v-if="activeStep === 1"
+        :patientSymptoms="patientSymptoms"
+        @next="handleNextStep"
+        @previus="handlePreviusStep"
+      />
+      <StepThree
+        v-if="activeStep === 2"
+        :patientInfo="patientInfo"
+        :patientSymptoms="patientSymptoms"
+        @send="handleSendData"
+        @previus="handlePreviusStep"
+      />
+      <StepFour v-if="activeStep === 3" @send="handleSendData" @previus="handlePreviusStep" />
     </div>
   </div>
 </template>
 
 <script>
+import StepOne from "./Partials/StepOne/StepOne.vue";
+import StepTwo from "./Partials/StepTwo/StepTwo.vue";
+import StepThree from "./Partials/StepThree/StepThree.vue";
+import StepFour from "./Partials/StepFour/StepFour.vue";
+import { ElLoading } from "element-plus";
+import { ElMessage } from "element-plus";
+import { getResultsMock } from "../../mocks/responseModel";
+
 export default {
   name: "FormPage",
   data() {
     return {
-      age: 0,
-      gender: "",
-      genderOptions: [
-        {
-          value: 0,
-          label: "Homen",
-        },
-        {
-          value: 1,
-          label: "Mulher",
-        },
-      ],
       activeStep: 0,
+      results: {},
+      patientInfo: {
+        name: "",
+        age: 0,
+        gender: "",
+        observations: "",
+      },
+      patientSymptoms: {
+        febre: {
+          label: "Febre",
+          value: false,
+        },
+        mialgia: {
+          label: "Mialgia",
+          value: false,
+        },
+        cefaleia: {
+          label: "Cefaleia",
+          value: false,
+        },
+        exantema: {
+          label: "Exantema",
+          value: false,
+        },
+        vomito: {
+          label: "Vomito",
+          value: false,
+        },
+        nausea: {
+          label: "Nausea",
+          value: false,
+        },
+        dorCostas: {
+          label: "Dor nas costas",
+          value: false,
+        },
+        astralgia: {
+          label: "Astralgia",
+          value: false,
+        },
+        dorRetro: {
+          label: "Dor retroorbital",
+          value: false,
+        },
+        leucopenia: {
+          label: "Leucopenia",
+          value: false,
+        },
+        petequias: {
+          label: "Petequias",
+          value: false,
+        },
+      },
     };
   },
+  components: {
+    StepOne,
+    StepTwo,
+    StepThree,
+    StepFour,
+  },
   methods: {
+    async handleSendData(data) {
+      const loading = ElLoading.service({
+        lock: true,
+        text: "Enviando dados",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
+      try {
+        const { data } = await getResultsMock();
+        this.results = data;
+      } catch (error) {
+        ElMessage({
+          type: "error",
+          message: error.response.data,
+          showClose: true,
+          duration: 3000,
+        });
+      } finally {
+        loading.close();
+        this.handleNextStep();
+      }
+    },
     handleNextStep() {
       this.activeStep++;
     },
