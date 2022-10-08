@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page-container">
     <h4>Resultado</h4>
     <span>{{ `Paciente: ${patient}` }}</span>
     <div>
@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: "StepFour",
+  name: "StepFourPage",
   props: {
     patient: {
       type: String,

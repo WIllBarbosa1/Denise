@@ -1,7 +1,9 @@
 <template>
   <div class="page-container">
     <Header />
-    <router-view class="page-content" />
+    <transition name="slide-fade" mode="out-in">
+      <router-view class="page-content" />
+    </transition>
     <Footer />
   </div>
 </template>

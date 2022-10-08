@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 0 20px;
+  padding: 20px;
 }
 
 .steps-line-container {
@@ -16,16 +16,4 @@
   margin-top: 20px;
   align-items: center;
   justify-content: space-between;
-}
-
-.steps-container {
-  width: 80%;
-  margin: 0 auto;
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  padding: 20px 40px;
-  border: 1px dotted #475B5A;
-  border-radius: 25px;
-  gap: 15px;
 }

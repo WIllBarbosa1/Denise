@@ -8,31 +8,23 @@
         <el-step title="Passo 4" description="Resultado" />
       </el-steps>
     </div>
-    <div class="steps-container">
-      <StepOne v-if="activeStep === 0" :patientInfo="patientInfo" @next="handleNextStep" />
-      <StepTwo
-        v-if="activeStep === 1"
-        :patientSymptoms="patientSymptoms"
-        @next="handleNextStep"
-        @previus="handlePreviusStep"
-      />
-      <StepThree
-        v-if="activeStep === 2"
-        :patientInfo="patientInfo"
-        :patientSymptoms="patientSymptoms"
-        @send="handleSendData"
-        @previus="handlePreviusStep"
-      />
-      <StepFour v-if="activeStep === 3" @send="handleSendData" @previus="handlePreviusStep" />
+    <div>
+      <transition name="slide-fade" mode="out-in">
+        <router-view
+          @next="handleNextStep"
+          @previus="handlePreviusStep"
+          @send="handleSendData"
+          :patientInfo="patientInfo"
+          :patientSymptoms="patientSymptoms"
+          :patient="patientInfo.name"
+          :results="results"
+        ></router-view>
+      </transition>
     </div>
   </div>
 </template>
 
 <script>
-import StepOne from "./Partials/StepOne/StepOne.vue";
-import StepTwo from "./Partials/StepTwo/StepTwo.vue";
-import StepThree from "./Partials/StepThree/StepThree.vue";
-import StepFour from "./Partials/StepFour/StepFour.vue";
 import { ElLoading } from "element-plus";
 import { ElMessage } from "element-plus";
 import { getResultsMock } from "../../mocks/responseModel";
@@ -95,14 +87,15 @@ export default {
           value: false,
         },
       },
+      path: {
+        0: "stepOne",
+        1: "stepTwo",
+        2: "stepThree",
+        3: "stepFour",
+      },
     };
   },
-  components: {
-    StepOne,
-    StepTwo,
-    StepThree,
-    StepFour,
-  },
+  components: {},
   methods: {
     async handleSendData(data) {
       const loading = ElLoading.service({
@@ -125,11 +118,68 @@ export default {
         this.handleNextStep();
       }
     },
+    handleReset() {
+      this.patientInfo = {
+        name: "",
+        age: 0,
+        gender: "",
+        observations: "",
+      };
+      this.patientSymptoms = {
+        febre: {
+          label: "Febre",
+          value: false,
+        },
+        mialgia: {
+          label: "Mialgia",
+          value: false,
+        },
+        cefaleia: {
+          label: "Cefaleia",
+          value: false,
+        },
+        exantema: {
+          label: "Exantema",
+          value: false,
+        },
+        vomito: {
+          label: "Vomito",
+          value: false,
+        },
+        nausea: {
+          label: "Nausea",
+          value: false,
+        },
+        dorCostas: {
+          label: "Dor nas costas",
+          value: false,
+        },
+        astralgia: {
+          label: "Astralgia",
+          value: false,
+        },
+        dorRetro: {
+          label: "Dor retroorbital",
+          value: false,
+        },
+        leucopenia: {
+          label: "Leucopenia",
+          value: false,
+        },
+        petequias: {
+          label: "Petequias",
+          value: false,
+        },
+      };
+      this.activeStep = 0;
+    },
     handleNextStep() {
       this.activeStep++;
+      this.$router.push(this.path[this.activeStep]);
     },
     handlePreviusStep() {
       this.activeStep--;
+      this.$router.push(this.path[this.activeStep]);
     },
   },
 };
