@@ -34,3 +34,13 @@ body {
   transform: translateX(100vw);
   opacity: 0;
 }
+
+*::-webkit-scrollbar {
+  background: #fff;
+  width: 7px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgb(192, 192, 192);
+  border-radius: 10px;
+}

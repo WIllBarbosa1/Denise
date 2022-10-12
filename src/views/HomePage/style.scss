@@ -1,23 +1,33 @@
 .page-container {
+  padding: 0 20px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding: 0 20px;
+  justify-content: space-between;
 }
 
-.carousel-container {
-  padding-top: 30px;
-  padding-bottom: 10px;
+.page-title {
+  font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 
-  &__title {
-    text-align: center;
-  }
-
+.page-sub-title {
+  font-size: 18px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .about-container {
   display: flex;
   flex-direction: column;
+
+  &__team {
+    padding-bottom: 20px;
+
+    h2 {
+      text-align: center;
+    }
+  }
 
   span {
     text-align: justify !important;
@@ -29,25 +39,29 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  margin: auto 0;
+  padding-bottom: 20px;
 
   &__image {
     height: 100px;
   }
+
 }
 
+.about-container__list {
+  list-style: none;
+  list-style-position: inside;
 
-.carousel-container__item {
+  &-item {
+    list-style-position: inside;
+
+    &:hover {
+      list-style: disc;
+    }
+  }
+}
+
+.users-container {
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 10px;
-}
-
-.el-carousel__item:nth-child(2n) {
-  background-color: #C5FCEC;
-}
-
-.el-carousel__item:nth-child(2n + 1) {
-  background-color: #d3dce6;
+  justify-content: space-evenly;
 }

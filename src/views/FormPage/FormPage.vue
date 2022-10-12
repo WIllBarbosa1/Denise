@@ -8,12 +8,13 @@
         <el-step title="Passo 4" description="Resultado" />
       </el-steps>
     </div>
-    <div>
+    <div class="form-container">
       <transition name="slide-fade" mode="out-in">
         <router-view
           @next="handleNextStep"
           @previus="handlePreviusStep"
           @send="handleSendData"
+          @reset="handleReset"
           :patientInfo="patientInfo"
           :patientSymptoms="patientSymptoms"
           :patient="patientInfo.name"
@@ -28,6 +29,7 @@
 import { ElLoading } from "element-plus";
 import { ElMessage } from "element-plus";
 import { getResultsMock } from "../../mocks/responseModel";
+import { mockFetchGetSymptoms } from "../../mocks/infos";
 
 export default {
   name: "FormPage",
@@ -41,52 +43,7 @@ export default {
         gender: "",
         observations: "",
       },
-      patientSymptoms: {
-        febre: {
-          label: "Febre",
-          value: false,
-        },
-        mialgia: {
-          label: "Mialgia",
-          value: false,
-        },
-        cefaleia: {
-          label: "Cefaleia",
-          value: false,
-        },
-        exantema: {
-          label: "Exantema",
-          value: false,
-        },
-        vomito: {
-          label: "Vomito",
-          value: false,
-        },
-        nausea: {
-          label: "Nausea",
-          value: false,
-        },
-        dorCostas: {
-          label: "Dor nas costas",
-          value: false,
-        },
-        astralgia: {
-          label: "Astralgia",
-          value: false,
-        },
-        dorRetro: {
-          label: "Dor retroorbital",
-          value: false,
-        },
-        leucopenia: {
-          label: "Leucopenia",
-          value: false,
-        },
-        petequias: {
-          label: "Petequias",
-          value: false,
-        },
-      },
+      patientSymptoms: {},
       path: {
         0: "stepOne",
         1: "stepTwo",
@@ -118,6 +75,19 @@ export default {
         this.handleNextStep();
       }
     },
+    async handleGetSymptoms() {
+      try {
+        const { data } = await mockFetchGetSymptoms();
+        this.patientSymptoms = data;
+      } catch (error) {
+        ElMessage({
+          type: "error",
+          message: error.response.data,
+          showClose: true,
+          duration: 3000,
+        });
+      }
+    },
     handleReset() {
       this.patientInfo = {
         name: "",
@@ -125,53 +95,12 @@ export default {
         gender: "",
         observations: "",
       };
-      this.patientSymptoms = {
-        febre: {
-          label: "Febre",
-          value: false,
-        },
-        mialgia: {
-          label: "Mialgia",
-          value: false,
-        },
-        cefaleia: {
-          label: "Cefaleia",
-          value: false,
-        },
-        exantema: {
-          label: "Exantema",
-          value: false,
-        },
-        vomito: {
-          label: "Vomito",
-          value: false,
-        },
-        nausea: {
-          label: "Nausea",
-          value: false,
-        },
-        dorCostas: {
-          label: "Dor nas costas",
-          value: false,
-        },
-        astralgia: {
-          label: "Astralgia",
-          value: false,
-        },
-        dorRetro: {
-          label: "Dor retroorbital",
-          value: false,
-        },
-        leucopenia: {
-          label: "Leucopenia",
-          value: false,
-        },
-        petequias: {
-          label: "Petequias",
-          value: false,
-        },
-      };
+
+      for (const symptom in this.patientSymptoms) {
+        this.patientSymptoms[symptom].value = false;
+      }
       this.activeStep = 0;
+      this.$router.push(this.path[this.activeStep]);
     },
     handleNextStep() {
       this.activeStep++;
@@ -181,6 +110,9 @@ export default {
       this.activeStep--;
       this.$router.push(this.path[this.activeStep]);
     },
+  },
+  created() {
+    this.handleGetSymptoms();
   },
 };
 </script>

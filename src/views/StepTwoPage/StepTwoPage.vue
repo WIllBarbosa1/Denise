@@ -2,13 +2,14 @@
   <div class="page-container">
     <h4>Informe os sintomas do paciente</h4>
     <div class="checkbox-container">
-      <el-checkbox
+      <CheckBoxDetail
         v-for="(symptom, index) in patientSymptoms"
         :key="`symptom-ckeckbox-${index}`"
-        v-model="symptom.value"
-        :label="symptom.label"
-        size="large"
+        :symptom="symptom"
       />
+      <!-- size="large" -->
+      <!-- v-model="symptom.value" -->
+      <!-- :label="symptom.label" -->
     </div>
     <div class="btn-wrapper">
       <el-button @click="handlePreviusStep">Retornar</el-button>
@@ -18,6 +19,8 @@
 </template>
 
 <script>
+import CheckBoxDetail from "../../components/CheckBoxDetail/CheckBoxDetail.vue";
+
 export default {
   name: "StepTwoPage",
   props: {
@@ -27,6 +30,9 @@ export default {
         return {};
       },
     },
+  },
+  components: {
+    CheckBoxDetail,
   },
   data() {
     return {
