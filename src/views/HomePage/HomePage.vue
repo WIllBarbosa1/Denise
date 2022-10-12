@@ -1,16 +1,22 @@
 <template>
   <div class="page-container">
     <div class="carousel-container">
-      <h3 class="carousel-container__title">Curiosidades</h3>
-      <el-carousel :interval="4000" type="card" height="200px" indicator-position="outside">
+      <h1 class="carousel-container__title">Bem-vindo(a)!</h1>
+      <el-carousel :interval="15000" type="card" height="200px" indicator-position="outside">
         <el-carousel-item class="carousel-container__item">
-          <span> Denise é um acrônimo para Dengue Information System of Estimative </span>
+          <span
+            >Olá, eu sou a DENISE, acrônimo para <strong>DEN</strong>gue
+            <strong>I</strong>nformation <strong>S</strong>ystem of <strong>E</strong>stimative. Sou
+            uma assistente virtual para auxílio no diagnóstico de Dengue. Meu objetivo é ajudar os
+            profissionais de saúde na tomada de decisão para um melhor diagnóstico inicial de seus
+            pacientes!
+          </span>
         </el-carousel-item>
         <el-carousel-item class="carousel-container__item">
           <span>
-            Denise foi um aplicativo desenvolvido utilizando machine learn e mineração de dados
-            durante a cadeira de Mineração de dados na UPE no ano de 2022, que através do uso dessas
-            tecnologias procura auxiliar no diagnóstico de dengue de um paciente.
+            Sou uma aplicação baseada em Machine Learning que utiliza do modelo de Decision Tree.
+            Para a aprendizagem dos dados, utilizei de registros clínicos reais oriundos da base de
+            dados do SINAN (Sistema de Informação de Agravo de Notificação).
           </span>
         </el-carousel-item>
         <el-carousel-item class="carousel-container__item">
@@ -21,19 +27,23 @@
             brônquica, anemia falciforme).
           </span>
         </el-carousel-item>
-        <el-carousel-item class="carousel-container__item">
-          <span> Denise foi desenvolvida em Python e JavaScript </span>
-        </el-carousel-item>
       </el-carousel>
     </div>
     <div class="about-container">
-      <h3>Sobre nós</h3>
+      <h2>Sobre</h2>
       <span>
-        Somos apenas um grupo de estudantes da Universidade de Pernambuco (UPE), que procuraram um
-        meio de utilizar nossos conhecimentos prévios e a oportunidade que nos foi dada durante a
-        cadeira de Mineração de dados na universidade para construir um sistema que possa auxiliar
-        no diagnóstico da dengue e contribuir de alguma forma com a sociedade.
+        A DENISE é um sistema desenvolvido por discentes do curso de Sistemas de Informação na
+        Universidade de Pernambuco (UPE) durante a disciplina de Mineração de Dados, sob a
+        orientação da Profa. Dra. Patricia Takako Endo.
       </span>
+    </div>
+    <div class="about-container">
+      <h2>Equipe</h2>
+      <ul>
+        <li>Arthur Isvi - Aluno de graduação na UPE</li>
+        <li>Will de Azevedo - Aluno de graduação na UPE</li>
+        <li>Dra. Patricia Takako Endo - Professora do PPGEC</li>
+      </ul>
     </div>
     <div class="images-container">
       <el-image class="images-container__image" :src="upe" />

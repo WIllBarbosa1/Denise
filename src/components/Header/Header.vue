@@ -10,8 +10,8 @@
       router
     >
       <el-image class="header-menu__logo" :src="logo" />
-      <el-menu-item index="1" route="/">Sobre</el-menu-item>
-      <el-menu-item index="2" route="/form/stepOne">Testes</el-menu-item>
+      <el-menu-item index="1" route="/">Início</el-menu-item>
+      <el-menu-item index="2" route="/form/stepOne">DENISE</el-menu-item>
     </el-menu>
   </header>
 </template>
