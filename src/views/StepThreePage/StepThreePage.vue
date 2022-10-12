@@ -49,8 +49,8 @@ export default {
   data() {
     return {
       genderDic: {
-        0: "Homem",
-        1: "Mulher",
+        0: "Masculino",
+        1: "Feminino",
       },
     };
   },
@@ -58,8 +58,8 @@ export default {
     handleSendData() {
       let sendData = { ...this.patientInfo };
       const checkDic = {
-        false: 1,
-        true: 2,
+        true: 1,
+        false: 2,
       };
 
       for (const symptom in this.patientSymptoms) {

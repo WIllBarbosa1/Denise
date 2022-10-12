@@ -1,13 +1,21 @@
 <template>
   <div class="page-container">
     <h4>Resultado</h4>
-    <span>{{ `Paciente: ${patient}` }}</span>
-    <div>
-      <span>{{ results.exit === 1 ? "Dengue" : "Outra doença" }}</span>
+    <div class="info-container">
+      <div class="info-container__wrapper">
+        <span>{{ `Paciente: ${patient}` }}</span>
+        <div>
+          Resultado:
+          <span>{{ results.exit === 1 ? "Dengue" : "Outra doença" }}</span>
+        </div>
+        <span>{{ `Probabilidade positiva: ${results.positive_probability}%` }}</span>
+        <span>{{ `Probabilidade negativa: ${results.negative_probability}%` }}</span>
+      </div>
+      <div>
+        <el-image v-if="results.exit === 1" class="result-img" :src="aprovado" />
+        <el-image v-else class="result-img" :src="rejeitado" />
+      </div>
     </div>
-    <span>{{ `Probabilidade: ${results.probability}` }}</span>
-    <el-image class="result-img" :src="aprovado" />
-    <el-image class="result-img" :src="rejeitado" />
     <div class="btn-wrapper">
       <el-button type="primary" @click="handleReset">Novo teste</el-button>
     </div>

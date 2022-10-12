@@ -39,11 +39,11 @@ export default {
       genderOptions: [
         {
           value: 0,
-          label: "Homem",
+          label: "Masculino",
         },
         {
           value: 1,
-          label: "Mulher",
+          label: "Feminino",
         },
       ],
     };
