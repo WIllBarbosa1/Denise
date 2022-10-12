@@ -49,7 +49,7 @@ export default {
   data() {
     return {
       genderDic: {
-        0: "Homen",
+        0: "Homem",
         1: "Mulher",
       },
     };
