@@ -1,7 +1,7 @@
 <template>
   <header class="header-container">
     <el-menu
-      :default-active="activeIndex"
+      :default-active="getCurrentNav"
       mode="horizontal"
       class="el-menu-demo header-menu"
       text-color="#475B5A"
@@ -18,19 +18,31 @@
 
 <script>
 import logo from "../../assets/logo.png";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "Header",
   data() {
     return {
       logo: logo,
-      activeIndex: "1",
+      activeIndex: "",
     };
   },
   methods: {
+    ...mapGetters(["getNavItems", "getNavCurrentIndex"]),
+    ...mapActions(["updateNavCurrentIndex"]),
+
     handleSelect(newIndex) {
-      this.activeIndex = newIndex;
+      this.updateNavCurrentIndex(newIndex);
     },
+  },
+  computed: {
+    getCurrentNav() {
+      return this.getNavCurrentIndex();
+    },
+  },
+  created() {
+    this.navItems = this.getNavItems();
   },
 };
 </script>

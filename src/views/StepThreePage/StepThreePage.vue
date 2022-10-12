@@ -57,9 +57,15 @@ export default {
   methods: {
     handleSendData() {
       let sendData = { ...this.patientInfo };
+      const checkDic = {
+        false: 1,
+        true: 2,
+      };
+
       for (const symptom in this.patientSymptoms) {
-        sendData[symptom] = this.patientSymptoms[symptom].value;
+        sendData[symptom] = checkDic[String(this.patientSymptoms[symptom].value)];
       }
+
       this.$emit("send", sendData);
     },
     handlePreviusStep() {

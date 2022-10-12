@@ -6,6 +6,8 @@
       <span>{{ results.exit === 1 ? "Dengue" : "Outra doença" }}</span>
     </div>
     <span>{{ `Probabilidade: ${results.probability}` }}</span>
+    <el-image class="result-img" :src="aprovado" />
+    <el-image class="result-img" :src="rejeitado" />
     <div class="btn-wrapper">
       <el-button type="primary" @click="handleReset">Novo teste</el-button>
     </div>
@@ -13,6 +15,9 @@
 </template>
 
 <script>
+import aprovado from "../../assets/aprovado.png";
+import rejeitado from "../../assets/rejeitado.png";
+
 export default {
   name: "StepFourPage",
   props: {
@@ -31,7 +36,10 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+      aprovado,
+      rejeitado,
+    };
   },
   methods: {
     handleReset() {

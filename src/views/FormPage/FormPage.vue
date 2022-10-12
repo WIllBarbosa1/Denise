@@ -30,6 +30,8 @@ import { ElLoading } from "element-plus";
 import { ElMessage } from "element-plus";
 import { getResultsMock } from "../../mocks/responseModel";
 import { mockFetchGetSymptoms } from "../../mocks/infos";
+import { fetchGetResult } from "../../service/model";
+import { mapActions } from "vuex";
 
 export default {
   name: "FormPage",
@@ -54,19 +56,52 @@ export default {
   },
   components: {},
   methods: {
-    async handleSendData(data) {
+    ...mapActions(["updateIsConfirmed", "updatePatientName"]),
+
+    handleFormatSendData(data) {
+      const sendData = {};
+      const keyDic = {
+        gender: "cs_sexo",
+        febre: "febre",
+        mialgia: "mialgia",
+        cefaleia: "cefaleia",
+        exantema: "exantema",
+        vomito: "vomito",
+        nausea: "nausea",
+        dorCostas: "dor_costas",
+        artralgia: "artralgia",
+        dorRetro: "dor_retro",
+        leucopenia: "leucopenia",
+        petequias: "petequia_n",
+        observations: "observations",
+        age: "age",
+        name: "name",
+      };
+
+      for (const key in data) {
+        sendData[keyDic[key]] = data[key];
+      }
+
+      return sendData;
+    },
+
+    async handleSendData(sendData) {
       const loading = ElLoading.service({
         lock: true,
         text: "Enviando dados",
         background: "rgba(0, 0, 0, 0.7)",
       });
       try {
-        const { data } = await getResultsMock();
-        this.results = data;
+        const send = this.handleFormatSendData(sendData);
+        let { data } = await fetchGetResult(send);
+        if (data) {
+          this.results = data;
+          this.updateIsConfirmed(true);
+        }
       } catch (error) {
         ElMessage({
           type: "error",
-          message: error.response.data,
+          message: error,
           showClose: true,
           duration: 3000,
         });
@@ -89,6 +124,8 @@ export default {
       }
     },
     handleReset() {
+      this.updateIsConfirmed(false);
+      this.updatePatientName("");
       this.patientInfo = {
         name: "",
         age: 0,

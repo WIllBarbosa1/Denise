@@ -5,6 +5,7 @@ import StepOnePage from "../views/StepOnePage/StepOnePage.vue";
 import StepTwoPage from "../views/StepTwoPage/StepTwoPage.vue";
 import StepThreePage from "../views/StepThreePage/StepThreePage.vue";
 import StepFourPage from "../views/StepFourPage/StepFourPage.vue";
+import store from "../store";
 
 const routes = [
   {
@@ -44,6 +45,25 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const { name } = to;
+  store.dispatch("updateNavCurrentIndexByName", name);
+
+  const passStepOne = store.getters.getPatientName?.length > 0;
+  const passStepThree = store.getters.getIsConfirmed;
+
+  if (name !== "Home") {
+    if (name !== "StepOnePage" && !passStepOne) {
+      next("/form/stepOne");
+    }
+    if (name === "StepFourPage" && !passStepThree) {
+      next("/form/StepThree");
+    }
+  }
+
+  next();
 });
 
 export default router;

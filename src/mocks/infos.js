@@ -13,7 +13,7 @@ const teamInfo = [
     avatarUrl: "https://avatars.githubusercontent.com/u/83462514?v=4",
     linkedinUrl: "https://www.linkedin.com/in/arthurisvi/",
     lattesUrl: "",
-    email: "arthurisvi@upe.br",
+    email: "arthur.isvi@upe.br",
   },
   {
     name: "Patricia Takako Endo",
@@ -63,8 +63,8 @@ const symptoms = {
     value: false,
     detail: "",
   },
-  astralgia: {
-    label: "Astralgia",
+  artralgia: {
+    label: "Artralgia",
     value: false,
     detail: "Dor nas articulações",
   },

@@ -45,6 +45,8 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "StepOnePage",
   props: {
@@ -75,7 +77,10 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["updatePatientName"]),
+
     handleNextStep() {
+      this.updatePatientName(this.patientInfo.name);
       this.$emit("next");
     },
   },

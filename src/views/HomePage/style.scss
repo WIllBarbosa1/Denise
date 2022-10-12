@@ -65,3 +65,17 @@
   align-items: center;
   justify-content: space-evenly;
 }
+
+.skeleton-container {
+  display: flex;
+  // background-color: seagreen;
+  gap: 5px;
+  align-items: center;
+  justify-content: space-around;
+
+  &__item {
+    width: 20vw;
+    // display: flex;
+    // flex-direction: column;
+  }
+}

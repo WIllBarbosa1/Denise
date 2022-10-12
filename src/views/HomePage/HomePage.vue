@@ -23,12 +23,24 @@
       </div>
       <div class="about-container__team">
         <h2 class="page-sub-title">Equipe</h2>
-        <div class="users-container">
-          <UserCard
-            v-for="(user, index) in usersInfo"
-            :key="`user-${user}-${index}`"
-            :userInfo="user"
-          />
+        <div v-if="loadingTeam" class="skeleton-container">
+          <el-skeleton animated :count="3" class="skeleton-container">
+            <template #template>
+              <div class="skeleton-container__item">
+                <el-skeleton-item variant="circle" style="width: 50px; height: 50px" />
+                <el-skeleton :rows="2" animated />
+              </div>
+            </template>
+          </el-skeleton>
+        </div>
+        <div v-else>
+          <div class="users-container">
+            <UserCard
+              v-for="(user, index) in usersInfo"
+              :key="`user-${user}-${index}`"
+              :userInfo="user"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -53,6 +65,7 @@ export default {
       upe: UPE,
       dot: dotLab,
       usersInfo: [],
+      loadingTeam: true,
     };
   },
   components: {
@@ -62,7 +75,10 @@ export default {
     async handleGetGitInfos(user) {
       try {
         const { data } = await mockFetchGetTeamInfos(user);
-        this.usersInfo = data;
+        if (data) {
+          this.usersInfo = data;
+          this.loadingTeam = false;
+        }
       } catch (error) {
         ElMessage({
           type: "error",
