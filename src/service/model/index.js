@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "http://denise-api.herokuapp.com";
+const baseURL = "https://denise-api.herokuapp.com";
 
 const api = axios.create({ baseURL });
 
