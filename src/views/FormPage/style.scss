@@ -1,0 +1,22 @@
+.page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.steps-line-container {
+  padding-top: 50px;
+}
+
+.step-button-container {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  margin-top: 20px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form-container {
+  padding-bottom: 20px;
+}

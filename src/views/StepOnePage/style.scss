@@ -1,0 +1,25 @@
+.page-container {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 20px;
+  border: 1px dotted #475B5A;
+  border-radius: 25px;
+  gap: 15px;
+}
+
+.paciente-info__input {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.btn-wrapper {
+  display: flex;
+}
+
+.btn-next {
+  margin-left: auto;
+}
